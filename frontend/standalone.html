@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excuse Generator - React Edition (Cozy Chaos)</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- React 18 & Babel Standalone -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#b5cea9",
+            "surface-tint": "#96472d",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed": "#221b00",
+            "surface-container": "#f5edde",
+            "error-container": "#ffdad6",
+            "surface": "#fff8ef",
+            "on-background": "#1e1b13",
+            "on-primary-fixed-variant": "#783119",
+            "inverse-surface": "#343026",
+            "surface-container-high": "#efe7d9",
+            "on-tertiary": "#ffffff",
+            "primary-fixed-dim": "#ffb59e",
+            "tertiary": "#4c6244",
+            "on-tertiary-container": "#f8ffef",
+            "on-tertiary-fixed-variant": "#384c30",
+            "tertiary-fixed": "#d1eac4",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#657b5b",
+            "primary": "#93452b",
+            "on-surface-variant": "#55433d",
+            "on-primary-container": "#fffbff",
+            "primary-fixed": "#ffdbd0",
+            "on-secondary": "#ffffff",
+            "outline-variant": "#dac1ba",
+            "on-primary-fixed": "#3a0b00",
+            "on-secondary-container": "#746113",
+            "outline": "#88726c",
+            "secondary-fixed-dim": "#dec56e",
+            "surface-variant": "#e9e2d3",
+            "on-surface": "#1e1b13",
+            "surface-bright": "#fff8ef",
+            "surface-container-highest": "#e9e2d3",
+            "secondary-container": "#f8de84",
+            "inverse-primary": "#ffb59e",
+            "secondary-fixed": "#fbe187",
+            "inverse-on-surface": "#f8f0e1",
+            "secondary": "#6f5d0e",
+            "primary-container": "#b25d41",
+            "surface-container-low": "#fbf3e4",
+            "background": "#fff8ef",
+            "on-tertiary-fixed": "#0d2008",
+            "on-error": "#ffffff",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#554500",
+            "surface-dim": "#e1d9cb",
+            "dusty-pink": "#EFA7B5",
+            "terracotta": "#C96F52"
+          },
+          fontFamily: {
+            "sticker-label": ["'Bricolage Grotesque'", "sans-serif"],
+            "body-sm": ["'Inter'", "sans-serif"],
+            "body-lg": ["'Inter'", "sans-serif"],
+            "headline-md": ["'Plus Jakarta Sans'", "sans-serif"],
+            "display-lg": ["'Plus Jakarta Sans'", "sans-serif"],
+            "display-mobile": ["'Plus Jakarta Sans'", "sans-serif"]
+          },
+          spacing: {
+            "container-padding": "24px",
+            "gutter": "16px",
+            "unit": "4px",
+            "stack-gap": "12px"
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #fff8ef;
+      color: #1e1b13;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+    .sticker-shadow { box-shadow: 4px 4px 0px 0px rgba(147, 69, 43, 1); }
+    .sticker-shadow-lg { box-shadow: 8px 8px 0px 0px rgba(147, 69, 43, 1); }
+    .sticker-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .sticker-hover:hover { transform: translate(-2px, -2px) scale(1.02); box-shadow: 6px 6px 0px 0px rgba(147, 69, 43, 1); }
+    .sticker-active:active { transform: scale(0.95); box-shadow: 2px 2px 0px 0px rgba(147, 69, 43, 1); }
+
+    .tape {
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(2px);
+      border-left: 2px dashed rgba(200, 180, 160, 0.4);
+      border-right: 2px dashed rgba(200, 180, 160, 0.4);
+    }
+    .bg-paper {
+      background-color: #fff8ef;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    }
+    .bg-grid {
+      background-image: linear-gradient(#dac1ba 1px, transparent 1px);
+      background-size: 100% 24px;
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-1.5deg); }
+      50% { transform: rotate(1.5deg) scale(1.02); }
+    }
+    .wiggle { animation: wiggle 3s infinite ease-in-out; }
+
+    @keyframes chaos-pulse {
+      0% { transform: scale(1) rotate(-1.5deg); }
+      50% { transform: scale(1.04) rotate(1deg); }
+      100% { transform: scale(1) rotate(-1.5deg); }
+    }
+    .pulse-chaos { animation: chaos-pulse 2.2s infinite ease-in-out; }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #93452b;
+      white-space: pre-wrap;
+      animation: blink-caret .75s step-end infinite;
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #93452b; }
+    }
+    input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%; height: 6px; cursor: pointer; background: #dac1ba; border-radius: 3px; border: 1px solid #88726c;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; height: 26px; width: 26px; border-radius: 50%;
+      background: #93452b; cursor: pointer; border: 2px solid #1e1b13;
+      box-shadow: 2px 2px 0px 0px #1e1b13; margin-top: -10px;
+    }
+  </style>
+</head>
+<body class="selection:bg-secondary-container selection:text-on-secondary-container antialiased">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // --- Component: CertifiedPlausibleBadge (converted from animated_svg/code.html) ---
+    function CertifiedPlausibleBadge({ size = 120, title = "Certified Plausible", className = "" }) {
+      return (
+        <div className={`inline-block pointer-events-none select-none ${className}`}>
+          <svg height={size} width={size} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <defs>
+              <filter id="plausible-shadow-s" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                <feOffset dx="2" dy="2" result="offsetblur" />
+                <feComponentTransfer>
+                  <feFuncA type="linear" slope="0.3" />
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <g filter="url(#plausible-shadow-s)">
+              <circle cx="100" cy="100" r="80" fill="#AFC7A3" stroke="#3D2B24" strokeWidth="4" />
+              <path d="M70 100 L90 120 L130 80" fill="none" stroke="#3D2B24" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8">
+                <animate attributeName="stroke-dasharray" dur="0.6s" fill="freeze" from="0,100" to="100,0" />
+              </path>
+              <text fill="#3D2B24" fontFamily="'Bricolage Grotesque', cursive, sans-serif" fontSize="14" fontWeight="bold" textAnchor="middle" x="100" y="155">
+                {title}
+                <animateTransform attributeName="transform" type="rotate" dur="2s" repeatCount="indefinite" values="-2 100 100; 2 100 100; -2 100 100" />
+              </text>
+            </g>
+          </svg>
+        </div>
+      );
+    }
+
+    // --- Component: ShaderBackground (converted from shader/code.html) ---
+    function ShaderBackground({ opacity = 0.35 }) {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        function syncSize() {
+          const w = window.innerWidth || 1280;
+          const h = window.innerHeight || 720;
+          if (canvas.width !== w || canvas.height !== h) {
+            canvas.width = w;
+            canvas.height = h;
+          }
+        }
+        syncSize();
+        window.addEventListener('resize', syncSize);
+
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return;
+
+        const vs = `attribute vec2 a_pos; varying vec2 v_uv; void main() { v_uv = a_pos * 0.5 + 0.5; gl_Position = vec4(a_pos, 0.0, 1.0); }`;
+        const fs = `precision highp float; varying vec2 v_uv; uniform float u_time;
+          float noise(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+          void main() {
+            vec2 uv = v_uv;
+            vec3 col = vec3(1.0, 0.969, 0.910);
+            col -= noise(uv + u_time * 0.01) * 0.05;
+            col += sin(uv.x * 50.0) * cos(uv.y * 50.0) * 0.02;
+            gl_FragColor = vec4(col, 1.0);
+          }`;
+
+        function compile(type, src) {
+          const s = gl.createShader(type);
+          gl.shaderSource(s, src);
+          gl.compileShader(s);
+          return s;
+        }
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
+        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+        const pos = gl.getAttribLocation(prog, 'a_pos');
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+        const uTime = gl.getUniformLocation(prog, 'u_time');
+        let anim;
+        function render(t) {
+          gl.viewport(0, 0, canvas.width, canvas.height);
+          if (uTime) gl.uniform1f(uTime, t * 0.001);
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+          anim = requestAnimationFrame(render);
+        }
+        anim = requestAnimationFrame(render);
+
+        return () => {
+          if (anim) cancelAnimationFrame(anim);
+          window.removeEventListener('resize', syncSize);
+        };
+      }, []);
+
+      return (
+        <div className="fixed inset-0 w-full h-full -z-20 pointer-events-none" style={{ opacity }}>
+          <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
+        </div>
+      );
+    }
+
+    // --- Component: Header ---
+    function Header({ currentTab, setCurrentTab }) {
+      const items = [
+        { id: 'generate', label: 'Generate' },
+        { id: 'archive', label: 'Archive' },
+        { id: 'hallOfFame', label: 'Hall of Fame' },
+        { id: 'chaos', label: 'Chaos' },
+      ];
+      return (
+        <header className="fixed top-0 left-0 right-0 w-full z-50 bg-[#fff8ef]/85 backdrop-blur-md border-b-2 border-outline-variant shadow-[4px_4px_0px_0px_rgba(147,69,43,1)]">
+          <div className="flex justify-between items-center px-container-padding h-16 w-full max-w-[800px] mx-auto">
+            <div className="flex items-center gap-3">
+              <button aria-label="Menu" className="text-primary hover:-translate-y-0.5 transition-all p-2">
+                <span className="material-symbols-outlined text-[28px]">menu</span>
+              </button>
+              <h1 onClick={() => setCurrentTab('generate')} className="font-display-mobile text-[26px] md:text-[32px] text-primary -rotate-2 cursor-pointer font-extrabold tracking-tight">
+                Excuse Generator
+              </h1>
+            </div>
+            <nav className="hidden md:flex gap-6 items-center">
+              {items.map(it => (
+                <button
+                  key={it.id}
+                  onClick={() => setCurrentTab(it.id)}
+                  className={`font-sticker-label transition-all ${currentTab === it.id ? 'text-primary font-bold underline decoration-primary decoration-2 underline-offset-4' : 'text-on-surface-variant hover:text-primary'}`}
+                >
+                  {it.label}
+                </button>
+              ))}
+            </nav>
+            <div className="w-10 h-10 rounded-full bg-secondary-container border-2 border-primary flex items-center justify-center font-bold text-on-secondary-container rotate-2">
+              UP
+            </div>
+          </div>
+        </header>
+      );
+    }
+
+    // --- Component: Bottom & Sidebar Navigation ---
+    function Navigation({ currentTab, setCurrentTab }) {
+      const items = [
+        { id: 'generate', label: 'Generate', icon: 'auto_fix_high' },
+        { id: 'archive', label: 'Archive', icon: 'folder_open' },
+        { id: 'hallOfFame', label: 'Hall of Fame', icon: 'workspace_premium' },
+        { id: 'chaos', label: 'Chaos', icon: 'local_fire_department' },
+      ];
+      return (
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 w-full rounded-t-xl z-50 bg-[#fff8ef] border-t-2 border-outline-variant shadow-[0px_-4px_0px_0px_rgba(147,69,43,0.15)]">
+          <div className="flex justify-around items-center px-3 pb-4 pt-2 max-w-[800px] mx-auto">
+            {items.map(it => {
+              const active = currentTab === it.id;
+              return (
+                <button
+                  key={it.id}
+                  onClick={() => setCurrentTab(it.id)}
+                  className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all ${active ? (it.id === 'chaos' ? 'bg-error-container text-on-error-container rotate-1 shadow-[2px_2px_0px_0px_rgba(186,26,26,1)]' : 'bg-secondary-container text-on-secondary-container rotate-1 shadow-[2px_2px_0px_0px_rgba(111,93,14,1)]') : 'text-on-surface-variant'}`}
+                >
+                  <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: active ? "'FILL' 1" : "'FILL' 0" }}>
+                    {it.icon}
+                  </span>
+                  <span className="font-sticker-label text-[11px] font-bold">{it.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+      );
+    }
+
+    // --- Component: ExcuseGeneratorHome (converted from excuse_generator_home/code.html) ---
+    function ExcuseGeneratorHome({ onNavigateToChaos }) {
+      const [situation, setSituation] = useState("I'm late");
+      const [believability, setBelievability] = useState(2);
+      const [tone, setTone] = useState("😭 Desperate");
+      const [recipient, setRecipient] = useState("Boss");
+      const [result, setResult] = useState(null);
+      const [copied, setCopied] = useState(false);
+
+      const situations = ["I'm late", "Can't make it", "Missed a deadline", "Didn't reply", "Forgot something", "Need to leave early"];
+      const tones = ["😇 Innocent", "🙂 Casual", "😭 Desperate", "🧠 Overly Detailed", "🤡 Unhinged"];
+      const bLabels = ["🤏 Innocent", "Suspicious", "Extremely Specific", "Absolutely Unhinged 🤯"];
+
+      const excusesMap = {
+        "I'm late": ["I’m so sorry I’m late. I accidentally got on the wrong metro line and ended up two counties over.", "My shoelace snapped in a tragic double-knot disaster that required emergency scissors and a deep breath."],
+        "Can't make it": ["Something sudden came up that requires my immediate and undivided existential presence.", "My key got stuck in the front door lock at a 47-degree angle that a locksmith is currently analyzing."],
+        "Missed a deadline": ["My file corrupted during export and the recovery process took 4 hours of intense terminal incantations.", "An automatic update initiated without consent and held my computer hostage for eternity."],
+        "Didn't reply": ["I typed out a full, thoughtful reply in my head and genuinely believed I had already sent it.", "My phone slipped between sofa cushions into an alternate dimensional rift for 18 hours."],
+        "Forgot something": ["I placed it in a special spot so I wouldn't lose it, and that spot was so secure that even I cannot find it.", "My coffee failed to kick in until 11:30 AM, rendering my short-term memory completely decorative."],
+        "Need to leave early": ["My landlord scheduled an unannounced water main inspection and warned of impending structural dampness.", "A courier just texted that a temperature-sensitive package requires an immediate physical signature."]
+      };
+
+      const handleGenerate = () => {
+        if ('vibrate' in navigator) navigator.vibrate(50);
+        const pool = excusesMap[situation] || excusesMap["I'm late"];
+        const text = pool[Math.floor(Math.random() * pool.length)];
+        setResult({
+          text,
+          situation,
+          tone,
+          believability: bLabels[believability - 1],
+          recipient,
+          ref: `#EX-${Math.floor(1000 + Math.random() * 9000)}`
+        });
+      };
+
+      const handleCopy = () => {
+        if (!result) return;
+        navigator.clipboard.writeText(result.text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      };
+
+      return (
+        <main className="pt-24 pb-36 max-w-[800px] mx-auto px-container-padding relative z-10">
+          <section className="text-center mb-12 relative">
+            <h1 className="font-display-mobile md:font-display-lg text-primary mb-4 leading-tight relative inline-block text-3xl md:text-5xl font-extrabold">
+              Need an excuse? <br />
+              <span className="relative inline-block mt-2">
+                <span className="absolute inset-0 bg-secondary-container -rotate-2 rounded-lg -z-10 scale-105"></span>
+                <span className="relative z-10 px-2 text-on-secondary-container">We got you.</span>
+              </span>
+            </h1>
+            <p className="font-body-lg text-on-surface-variant max-w-lg mx-auto mb-6">
+              Generate an excuse so believable that even you might start believing it.
+            </p>
+            <button onClick={handleGenerate} className="bg-primary-container text-on-primary-container border-2 border-primary font-sticker-label px-8 py-4 rounded-xl shadow-[6px_6px_0px_0px_#93452b] hover:-translate-y-1 active:scale-95 transition-all wiggle">
+              ✨ Generate Excuse
+            </button>
+          </section>
+
+          <section className="relative mb-12">
+            <div className="absolute -top-10 -right-4 md:-right-8 w-28 h-28 md:w-32 md:h-32 z-20 pointer-events-none rotate-12">
+              <CertifiedPlausibleBadge size={120} />
+            </div>
+
+            <div className="bg-surface border-2 border-outline shadow-[8px_8px_0px_0px_#88726c] rounded-[2rem] p-6 md:p-10 rotate-0.5 relative z-10">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 tape -rotate-2 z-20" />
+              <h2 className="font-headline-md text-2xl font-bold text-on-surface mb-6 border-b-2 border-outline-variant pb-4 inline-block -rotate-1">
+                What happened?
+              </h2>
+
+              <div className="mb-8">
+                <label className="block font-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm">
+                  The Situation
+                </label>
+                <div className="flex flex-wrap gap-2.5">
+                  {situations.map((sit, idx) => (
+                    <button
+                      key={sit}
+                      onClick={() => setSituation(sit)}
+                      className={`rounded-full px-4 py-2 font-sticker-label border-2 transition-all active:scale-95 ${situation === sit ? 'bg-secondary-container text-on-secondary-container border-outline shadow-[3px_3px_0px_0px_#88726c] font-bold scale-105' : 'bg-surface text-on-surface border-outline/70 shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant'}`}
+                    >
+                      {sit}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-8 p-5 bg-surface-container rounded-xl border-2 border-outline-variant border-dashed">
+                <div className="font-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm flex justify-between items-center">
+                  <span>Believability</span>
+                  <span className="text-primary font-bold bg-[#fff8ef] px-3 py-1 rounded-full border border-primary/40 text-xs">
+                    {bLabels[believability - 1]}
+                  </span>
+                </div>
+                <input
+                  type="range" min="1" max="4" step="1"
+                  value={believability}
+                  onChange={(e) => setBelievability(parseInt(e.target.value))}
+                  className="w-full mb-3"
+                />
+                <div className="grid grid-cols-4 font-body-sm text-xs text-on-surface-variant px-1 mt-1 text-center">
+                  <span>🤏 Innocent</span>
+                  <span>Suspicious</span>
+                  <span>Specific</span>
+                  <span>Unhinged 🤯</span>
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <label className="block font-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm">
+                  The Tone
+                </label>
+                <div className="flex flex-wrap gap-2.5">
+                  {tones.map(t => (
+                    <button
+                      key={t}
+                      onClick={() => setTone(t)}
+                      className={`rounded-lg px-3.5 py-1.5 font-sticker-label border-2 transition-all active:scale-95 ${tone === t ? 'bg-secondary-container text-on-secondary-container border-primary shadow-[3px_3px_0px_0px_#93452b] scale-105 font-bold' : 'bg-surface text-on-surface border-outline/70 shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant'}`}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-10">
+                <label className="block font-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm">
+                  Who are you telling?
+                </label>
+                <select
+                  value={recipient}
+                  onChange={(e) => setRecipient(e.target.value)}
+                  className="w-full bg-surface border-2 border-outline text-on-surface font-body-lg py-3.5 pl-4 pr-10 rounded-xl shadow-[4px_4px_0px_0px_#88726c] focus:outline-none focus:border-primary cursor-pointer"
+                >
+                  <option>Friend</option>
+                  <option>Partner</option>
+                  <option>Parent</option>
+                  <option>Teacher</option>
+                  <option>Boss</option>
+                  <option>Coworker</option>
+                  <option>Stranger</option>
+                </select>
+              </div>
+
+              <button
+                onClick={handleGenerate}
+                className="w-full bg-primary text-on-primary border-2 border-on-background font-headline-md text-xl font-bold py-4 rounded-xl shadow-[6px_6px_0px_0px_#1e1b13] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2"
+              >
+                Generate My Excuse
+                <span className="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+          </section>
+
+          {result && (
+            <section className="relative mt-8">
+              <div className="bg-paper rounded-xl p-6 md:p-8 border-2 border-primary sticker-shadow relative max-w-lg mx-auto transform -rotate-1 border-dashed">
+                <div className="text-center border-b-2 border-outline-variant pb-3 mb-5">
+                  <h3 className="font-headline-md text-xl font-bold text-primary uppercase tracking-widest">
+                    Official Excuse™
+                  </h3>
+                  <p className="font-body-sm text-on-surface-variant text-xs mt-1">
+                    Ref: {result.ref} • Target: {result.recipient}
+                  </p>
+                </div>
+                <div className="min-h-[100px] flex items-center justify-center bg-surface-container-low rounded-lg p-5 border border-outline-variant mb-6 shadow-inner">
+                  <p className="font-body-lg text-on-background text-center italic leading-relaxed">
+                    "{result.text}"
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <button onClick={handleCopy} className="flex-1 bg-primary-container text-on-primary-container font-sticker-label px-4 py-3 rounded-lg border-2 border-on-background sticker-shadow flex items-center justify-center gap-2">
+                    <span className="material-symbols-outlined">{copied ? 'check' : 'content_copy'}</span>
+                    {copied ? 'Copied!' : 'Copy Excuse'}
+                  </button>
+                  <button onClick={onNavigateToChaos} className="bg-error-container text-on-error-container font-sticker-label px-4 py-3 rounded-lg border-2 border-on-error-container sticker-shadow flex items-center justify-center gap-2">
+                    <span className="material-symbols-outlined">local_fire_department</span>
+                    Chaos
+                  </button>
+                </div>
+              </div>
+            </section>
+          )}
+        </main>
+      );
+    }
+
+    // --- Component: ChaosMode (converted from chaos_mode_how_cooked/code.html) ---
+    function ChaosMode() {
+      const [cooked, setCooked] = useState(87);
+      const [excuse, setExcuse] = useState("I’m so sorry I’m late. I accidentally got on the wrong metro...");
+      const [copied, setCopied] = useState(false);
+      const [drama, setDrama] = useState(64);
+      const [chaos, setChaos] = useState(31);
+      const [believability, setBelievability] = useState(78);
+
+      const chaosExcuses = [
+        "I’m so sorry I’m late. I accidentally got on the wrong metro...",
+        "My roomba escaped out the front door and led the neighborhood watch on a 45-minute low-speed pursuit.",
+        "A murder of crows took offense to my coat color and held an aerial demonstration outside my driveway.",
+        "I attempted to parallel park, panicked, and drove to a neighboring zip code to regroup emotionally."
+      ];
+
+      const handlePanic = () => {
+        const next = chaosExcuses[(chaosExcuses.indexOf(excuse) + 1) % chaosExcuses.length];
+        setExcuse(next);
+        setBelievability(Math.floor(60 + Math.random() * 30));
+        setDrama(Math.floor(55 + Math.random() * 40));
+        setChaos(Math.floor(40 + Math.random() * 55));
+      };
+
+      const handleMakeWorse = () => {
+        setCooked(99);
+        setDrama(98);
+        setChaos(99);
+        setBelievability(12);
+        setExcuse("My neighbor's emotional support parrot flew onto my balcony and started confessing crimes in French.");
+      };
+
+      const handleCopy = () => {
+        navigator.clipboard.writeText(excuse);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      };
+
+      return (
+        <main className="w-full max-w-[800px] mx-auto pt-24 pb-36 px-container-padding relative z-10 flex flex-col gap-6">
+          <section className="flex flex-col items-center justify-center my-4 relative">
+            <div className="absolute -top-6 -right-2 md:-right-4 rotate-12 z-20">
+              <span className="bg-terracotta text-white font-sticker-label px-4 py-1.5 rounded-full border-2 border-on-background sticker-shadow uppercase text-sm tracking-wider">
+                CHAOS MODE
+              </span>
+            </div>
+            <div className="w-full bg-surface-container-lowest rounded-xl p-6 border-2 border-primary sticker-shadow relative overflow-hidden">
+              <div className="bg-grid absolute inset-0 opacity-20 z-0 pointer-events-none" />
+              <div className="relative z-10 flex flex-col items-center">
+                <h2 className="font-headline-md text-2xl font-bold text-primary mb-4 text-center">
+                  How cooked are you?
+                </h2>
+                <div className="w-full h-8 bg-surface-variant rounded-full border-2 border-outline overflow-hidden mb-2 relative">
+                  <div className="h-full bg-error flex items-center justify-end pr-3 text-white font-bold text-sm transition-all duration-700" style={{ width: `${cooked}%` }}>
+                    {cooked}%
+                  </div>
+                </div>
+                <p className="font-sticker-label text-on-surface-variant text-center mt-2 uppercase tracking-widest text-xs">
+                  {cooked >= 95 ? "🔥 Beyond Hope: Total Collapse" : "Dangerously Close to Consequence"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="grid grid-cols-2 gap-4">
+            <div className="bg-[#fbe187] rounded-lg p-4 border-2 border-on-background sticker-shadow rotate-1 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-2 text-on-secondary-fixed">
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>
+                <span className="font-sticker-label uppercase text-xs">Situation</span>
+              </div>
+              <p className="font-headline-md text-xl font-bold text-on-background">Catastrophic</p>
+            </div>
+            <div className="bg-dusty-pink rounded-lg p-4 border-2 border-on-background sticker-shadow -rotate-2 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-2 text-on-background">
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
+                <span className="font-sticker-label uppercase text-xs">Brain Activity</span>
+              </div>
+              <p className="font-headline-md text-xl font-bold text-on-background">Questionable</p>
+            </div>
+          </section>
+
+          <section className="flex justify-center my-4 z-20">
+            <button onClick={handlePanic} className="pulse-chaos bg-terracotta text-white font-headline-md text-xl font-bold px-8 py-5 rounded-xl border-4 border-on-background sticker-shadow-lg active:scale-90 transition-all flex flex-col items-center gap-1 w-full max-w-sm">
+              <span className="uppercase tracking-widest text-xs font-sticker-label text-[#ffdbd0]">Panic Button</span>
+              <span className="flex items-center gap-2">
+                Give me an excuse
+                <span className="material-symbols-outlined text-[28px]">bolt</span>
+              </span>
+            </button>
+          </section>
+
+          <section className="relative mt-2 mb-8">
+            <div className="absolute -top-10 -right-6 md:-right-8 w-28 h-28 md:w-32 md:h-32 z-30 pointer-events-none rotate-12">
+              <CertifiedPlausibleBadge size={120} title={cooked >= 95 ? "Barely Legal" : "Certified Plausible"} />
+            </div>
+
+            <div className="bg-paper rounded-xl p-6 md:p-8 border-2 border-primary sticker-shadow relative max-w-md mx-auto transform -rotate-1 border-dashed">
+              <div className="text-center border-b-2 border-outline-variant pb-4 mb-6">
+                <h3 className="font-headline-md text-xl font-bold text-primary tracking-widest uppercase">
+                  Official Excuse™
+                </h3>
+                <p className="font-body-sm text-xs text-on-surface-variant mt-1">Ref: #CH405-992</p>
+              </div>
+
+              <div className="min-h-[110px] flex items-center justify-center bg-surface-container-low rounded-lg p-5 border border-outline-variant mb-6 shadow-inner">
+                <p className="font-body-lg text-on-background text-center italic typewriter">
+                  "{excuse}"
+                </p>
+              </div>
+
+              <div className="space-y-3 mb-8">
+                <div>
+                  <div className="flex justify-between font-body-sm text-xs mb-1">
+                    <span>Believability</span>
+                    <span className="font-bold text-tertiary">{believability}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+                    <div className="h-full bg-tertiary transition-all" style={{ width: `${believability}%` }} />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between font-body-sm text-xs mb-1">
+                    <span>Drama</span>
+                    <span className="font-bold text-primary">{drama}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+                    <div className="h-full bg-primary transition-all" style={{ width: `${drama}%` }} />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between font-body-sm text-xs mb-1">
+                    <span>Chaos</span>
+                    <span className="font-bold text-error">{chaos}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+                    <div className="h-full bg-error transition-all" style={{ width: `${chaos}%` }} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button onClick={handleCopy} className="bg-primary-container text-on-primary-container font-sticker-label px-4 py-3.5 rounded-lg border-2 border-on-background sticker-shadow flex items-center justify-center gap-2">
+                  <span className="material-symbols-outlined">{copied ? 'check' : 'content_copy'}</span>
+                  {copied ? 'Copied!' : 'Copy Excuse'}
+                </button>
+                <div className="flex gap-3">
+                  <button onClick={handlePanic} className="flex-1 bg-surface text-on-surface font-sticker-label px-4 py-3 rounded-lg border-2 border-outline sticker-shadow flex items-center justify-center gap-1.5">
+                    <span className="material-symbols-outlined">refresh</span> Another
+                  </button>
+                  <button onClick={handleMakeWorse} className="flex-1 bg-error-container text-on-error-container font-sticker-label px-4 py-3 rounded-lg border-2 border-on-error-container sticker-shadow flex items-center justify-center gap-1.5">
+                    <span className="material-symbols-outlined">warning</span> Make It Worse
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      );
+    }
+
+    // --- Component: HallOfFame (converted from excuse_categories_hall_of_fame/code.html) ---
+    function HallOfFame() {
+      const items = [
+        { title: '"The pigeon incident"', desc: "A rogue pigeon flew into my living room, stared into my soul, and refused to leave until negotiated with half a bagel.", chaos: "⭐ 4.9", tag: "Chaos", rot: "rotate-[0.5deg]" },
+        { title: '"My GPS emotionally betrayed me"', desc: "My navigation rerouted me through an abandoned scenic overlook because it believed I needed a moment of personal reflection.", chaos: "🔥 92%", tag: "Chaos", rot: "rotate-[-1deg]" },
+        { title: '"I accidentally entered a different timeline"', desc: "I set three alarms, but daylight saving time occurred in an alternate universe where my phone lives.", chaos: "💀 100%", tag: "Unhinged", rot: "rotate-[1.5deg]" }
+      ];
+
+      const categories = [
+        { label: "Running Late", icon: "timer", bg: "bg-secondary-container" },
+        { label: "Ghosting", icon: "visibility_off", bg: "bg-primary-fixed" },
+        { label: "Work", icon: "work", bg: "bg-tertiary-container" },
+        { label: "School", icon: "school", bg: "bg-secondary-container" },
+        { label: "Social Plans", icon: "groups", bg: "bg-primary-fixed" },
+        { label: "Emergency", icon: "warning", bg: "bg-error-container" }
+      ];
+
+      return (
+        <main className="max-w-[800px] mx-auto pt-24 pb-36 px-container-padding relative z-10 flex flex-col gap-10">
+          <section>
+            <div className="flex items-center justify-between mb-4 relative">
+              <h2 className="font-headline-md text-2xl font-bold text-primary-fixed-variant rotate-[-1deg] flex items-center gap-2">
+                <span>🏆</span> Hall of Fame
+              </h2>
+              <div className="tape w-24 h-6 absolute -top-3 left-6 -rotate-3 pointer-events-none" />
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 relative">
+              {items.map((it, idx) => (
+                <article key={idx} className={`bg-surface-container rounded-xl p-6 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] relative ${it.rot}`}>
+                  <div className="tape w-16 h-4 absolute -top-2 right-1/2 translate-x-1/2 pointer-events-none" />
+                  <div className="flex justify-between items-start mb-2 gap-4">
+                    <div>
+                      <p className="font-body-lg font-bold text-on-surface">{it.title}</p>
+                      <p className="font-body-sm text-on-surface-variant text-sm mt-1">{it.desc}</p>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <span className="px-2.5 py-1 rounded-md bg-secondary-container text-on-secondary-container border border-secondary shadow-[2px_2px_0px_0px_rgba(111,93,14,1)] font-sticker-label text-xs">
+                        {it.chaos}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="font-headline-md text-2xl font-bold text-primary-fixed-variant rotate-1 mb-4">
+              Categories
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {categories.map((cat, idx) => (
+                <button key={idx} className="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 transition-all active:scale-95 wiggle">
+                  <div className={`w-12 h-12 ${cat.bg} rounded-full flex items-center justify-center`}>
+                    <span className="material-symbols-outlined text-2xl">{cat.icon}</span>
+                  </div>
+                  <span className="font-sticker-label text-on-surface text-sm">{cat.label}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        </main>
+      );
+    }
+
+    // --- Component: Archive ---
+    function Archive({ onNavigateToGenerate }) {
+      return (
+        <main className="max-w-[800px] mx-auto pt-24 pb-36 px-container-padding relative z-10 flex flex-col gap-6">
+          <h2 className="font-headline-md text-2xl font-bold text-primary -rotate-1">
+            📁 Excuse Archive
+          </h2>
+          <div className="bg-surface-container p-8 rounded-2xl border-2 border-dashed border-outline text-center">
+            <p className="font-body-lg text-on-surface-variant mb-4">You have 3 saved alibis in memory.</p>
+            <button onClick={onNavigateToGenerate} className="bg-primary text-white font-sticker-label px-6 py-2.5 rounded-xl sticker-shadow">
+              Generate Another
+            </button>
+          </div>
+        </main>
+      );
+    }
+
+    // --- Main App Root ---
+    function App() {
+      const [tab, setTab] = useState('generate');
+
+      return (
+        <div className="min-h-screen bg-[#fff8ef] text-[#1e1b13] relative overflow-x-hidden">
+          <ShaderBackground opacity={0.35} />
+          <Header currentTab={tab} setCurrentTab={setTab} />
+          {tab === 'generate' && <ExcuseGeneratorHome onNavigateToChaos={() => setTab('chaos')} />}
+          {tab === 'chaos' && <ChaosMode />}
+          {tab === 'hallOfFame' && <HallOfFame />}
+          {tab === 'archive' && <Archive onNavigateToGenerate={() => setTab('generate')} />}
+          <Navigation currentTab={tab} setCurrentTab={setTab} />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

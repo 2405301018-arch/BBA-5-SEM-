@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Excuse Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Bricolage+Grotesque:wght@600&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#b5cea9",
+                        "surface-tint": "#96472d",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#221b00",
+                        "surface-container": "#f5edde",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8ef",
+                        "on-background": "#1e1b13",
+                        "on-primary-fixed-variant": "#783119",
+                        "inverse-surface": "#343026",
+                        "surface-container-high": "#efe7d9",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#ffb59e",
+                        "tertiary": "#4c6244",
+                        "on-tertiary-container": "#f8ffef",
+                        "on-tertiary-fixed-variant": "#384c30",
+                        "tertiary-fixed": "#d1eac4",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#657b5b",
+                        "primary": "#93452b",
+                        "on-surface-variant": "#55433d",
+                        "on-primary-container": "#fffbff",
+                        "primary-fixed": "#ffdbd0",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#dac1ba",
+                        "on-primary-fixed": "#3a0b00",
+                        "on-secondary-container": "#746113",
+                        "outline": "#88726c",
+                        "secondary-fixed-dim": "#dec56e",
+                        "surface-variant": "#e9e2d3",
+                        "on-surface": "#1e1b13",
+                        "surface-bright": "#fff8ef",
+                        "surface-container-highest": "#e9e2d3",
+                        "secondary-container": "#f8de84",
+                        "inverse-primary": "#ffb59e",
+                        "secondary-fixed": "#fbe187",
+                        "inverse-on-surface": "#f8f0e1",
+                        "secondary": "#6f5d0e",
+                        "primary-container": "#b25d41",
+                        "surface-container-low": "#fbf3e4",
+                        "background": "#fff8ef",
+                        "on-tertiary-fixed": "#0d2008",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#554500",
+                        "surface-dim": "#e1d9cb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "sticker-label": ["Bricolage Grotesque"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "display-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "sticker-label": ["16px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-mobile": ["36px", { "lineHeight": "1.1", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .wiggle { animation: wiggle 3s infinite ease-in-out; }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg) scale(1.02); }
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #93452b;
+            cursor: pointer;
+            border: 2px solid #1e1b13;
+            box-shadow: 2px 2px 0px 0px #1e1b13;
+            margin-top: -10px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #dac1ba;
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="fixed inset-0 w-full h-full -z-20 pointer-events-none opacity-40" -->
+<div class="fixed inset-0 w-full h-full -z-20 pointer-events-none opacity-40" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float noise(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Base color: #FFF7E8
+    vec3 color = vec3(1.0, 0.969, 0.910);
+    
+    // Add subtle grain
+    float grain = noise(uv + u_time * 0.01) * 0.05;
+    color -= grain;
+    
+    // Add soft paper texture variation
+    float texture = sin(uv.x * 50.0) * cos(uv.y * 50.0) * 0.02;
+    color += texture;
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<header class="bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 text-primary dark:text-primary-fixed-dim font-headline-md text-headline-md fixed top-0 w-full z-50 border-b-2 border-outline-variant dark:border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)]">
+<div class="flex justify-between items-center px-container-padding h-16 w-full max-w-[800px] mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all cursor-pointer" data-icon="menu">menu</span>
+<span class="font-display-mobile text-display-mobile text-primary dark:text-primary-fixed-dim -rotate-2 select-none">Excuse Generator</span>
+</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-primary font-bold font-sticker-label text-sticker-label hover:-translate-y-0.5 transition-all" href="#">Generate</a>
+<a class="text-on-surface-variant font-sticker-label text-sticker-label hover:-translate-y-0.5 transition-all" href="#">Archive</a>
+<a class="text-on-surface-variant font-sticker-label text-sticker-label hover:-translate-y-0.5 transition-all" href="#">Hall of Fame</a>
+<a class="text-on-surface-variant font-sticker-label text-sticker-label hover:-translate-y-0.5 transition-all" href="#">Chaos</a>
+</nav>
+<div class="w-8 h-8 rounded-full bg-secondary-container border-2 border-outline flex items-center justify-center shadow-[2px_2px_0px_0px_rgba(136,114,108,1)] overflow-hidden cursor-pointer hover:-translate-y-0.5 transition-all">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ7cqJKeMLNo7sCOQL5Z3cjfbpX7heyQLeJ7HbM_lOV8o6e99f1f1u7-XsCNWbFOw0dHQFjucp9Zl3EB8g6TOGnnKWtkBgwvEp2WJcOu9Yyrf8aDZIP71JDC6EnqWihsIX3sx2agGs6NcefWmVulh8eLchE0WRk0xAlh0tvgVVb9zOnJYd7QFeyHsvMuIiZxfuvdzMiSOPrzUZp-ShxpGXUa0mjIbi1mXh7a7AtzgGefc9iXG_ZDMd"/>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-40 max-w-[800px] mx-auto px-container-padding relative">
+<div class="absolute top-20 right-4 md:right-[-40px] text-primary/20 -rotate-12 pointer-events-none select-none">
+<svg fill="none" height="60" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="60"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+<div class="absolute bottom-40 left-4 md:left-[-60px] text-secondary/30 rotate-12 pointer-events-none select-none">
+<svg fill="none" height="80" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="80"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+</div>
+<section class="text-center mb-16 relative">
+<h1 class="font-display-mobile md:font-display-lg text-primary mb-4 leading-tight relative inline-block">
+                Need an excuse? <br/>
+<span class="relative inline-block mt-2">
+<span class="absolute inset-0 bg-secondary-container -rotate-2 rounded-lg -z-10"></span>
+<span class="relative z-10 px-2 text-on-secondary-container">We got you.</span>
+</span>
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-lg mx-auto mb-8">Generate an excuse so believable that even you might start believing it.</p>
+<button class="bg-primary-container text-on-primary-container border-2 border-primary font-sticker-label text-sticker-label px-8 py-4 rounded-xl shadow-[6px_6px_0px_0px_#93452b] hover:-translate-y-1 hover:translate-x-[-1px] hover:shadow-[8px_8px_0px_0px_#93452b] active:scale-95 transition-all wiggle">
+                ✨ Generate Excuse
+            </button>
+</section>
+<section class="relative">
+<div class="absolute -top-12 -right-8 w-32 h-32 z-20 pointer-events-none hidden md:block">
+<!-- STITCH_SVG_START:ANIMATION_3 class="w-full h-full" --><div class="w-full h-full" id="animated-svg-ANIMATION_3" style="display:block;"><svg height="200" viewbox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="140%" id="shadow" width="140%" x="-20%" y="-20%">
+<fegaussianblur in="SourceAlpha" stddeviation="3"></fegaussianblur>
+<feoffset dx="2" dy="2" result="offsetblur"></feoffset>
+<fecomponenttransfer>
+<fefunca slope="0.3" type="linear"></fefunca>
+</fecomponenttransfer>
+<femerge>
+<femergenode></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<g filter="url(#shadow)">
+<circle cx="100" cy="100" fill="#AFC7A3" r="80" stroke="#3D2B24" stroke-width="4"></circle>
+<path d="M70 100 L90 120 L130 80" fill="none" stroke="#3D2B24" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+<animate attributename="stroke-dasharray" dur="0.5s" fill="freeze" from="0,100" to="100,0"></animate>
+</path>
+<text fill="#3D2B24" font-family="cursive" font-size="14" font-weight="bold" text-anchor="middle" x="100" y="155">
+      Certified Plausible
+      <animatetransform attributename="transform" dur="2s" repeatcount="indefinite" type="rotate" values="-2 100 100; 2 100 100; -2 100 100"></animatetransform>
+</text>
+</g>
+</svg></div><!-- STITCH_SVG_END:ANIMATION_3 -->
+</div>
+<div class="bg-surface border-2 border-outline shadow-[8px_8px_0px_0px_#88726c] rounded-[2rem] p-6 md:p-10 rotate-1 relative z-10">
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-surface-variant/50 backdrop-blur-sm -rotate-2 z-20" style="clip-path: polygon(0 10%, 100% 0, 95% 100%, 5% 90%); mix-blend-mode: multiply;"></div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 border-b-2 border-outline-variant pb-4 inline-block -rotate-1">What happened?</h2>
+<div class="mb-8">
+<label class="block font-sticker-label text-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm">The Situation</label>
+<div class="flex flex-wrap gap-3">
+<button class="bg-secondary-container text-on-secondary-container border-2 border-outline rounded-full px-4 py-2 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:-translate-y-0.5 active:scale-95 transition-transform rotate-1">I'm late</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-full px-4 py-2 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors -rotate-1">Can't make it</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-full px-4 py-2 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors rotate-2">Missed a deadline</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-full px-4 py-2 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors -rotate-2">Didn't reply</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-full px-4 py-2 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors rotate-1">Forgot something</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-full px-4 py-2 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors">Need to leave early</button>
+</div>
+</div>
+<div class="mb-8 p-4 bg-surface-container rounded-xl border-2 border-outline-variant border-dashed">
+<label class="block font-sticker-label text-sticker-label text-on-surface-variant mb-4 uppercase tracking-wider text-sm flex justify-between">
+<span>Believability</span>
+<span class="text-primary">Suspicious</span>
+</label>
+<input class="w-full mb-2" max="4" min="1" type="range" value="2"/>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant px-1 mt-2">
+<span>🤏 Innocent</span>
+<span class="font-bold text-on-surface">Suspicious</span>
+<span>Extremely Specific</span>
+<span>Absolutely Unhinged 🤯</span>
+</div>
+</div>
+<div class="mb-8">
+<label class="block font-sticker-label text-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm">The Tone</label>
+<div class="flex flex-wrap gap-3">
+<button class="bg-surface text-on-surface border-2 border-outline rounded-lg px-3 py-1 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors -rotate-1">😇 Innocent</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-lg px-3 py-1 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors rotate-1">🙂 Casual</button>
+<button class="bg-tertiary-container text-on-tertiary-container border-2 border-outline rounded-lg px-3 py-1 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:-translate-y-0.5 active:scale-95 transition-transform rotate-2">😭 Desperate</button>
+<button class="bg-surface text-on-surface border-2 border-outline rounded-lg px-3 py-1 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#88726c] hover:bg-surface-variant active:scale-95 transition-colors -rotate-2">🧠 Overly Detailed</button>
+<button class="bg-error-container text-on-error-container border-2 border-error rounded-lg px-3 py-1 font-sticker-label text-sticker-label shadow-[2px_2px_0px_0px_#ba1a1a] hover:bg-error/20 active:scale-95 transition-colors rotate-1">🤡 Unhinged</button>
+</div>
+</div>
+<div class="mb-10">
+<label class="block font-sticker-label text-sticker-label text-on-surface-variant mb-3 uppercase tracking-wider text-sm">Who are you telling?</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface border-2 border-outline text-on-surface font-body-lg py-3 pl-4 pr-10 rounded-xl shadow-[4px_4px_0px_0px_#88726c] focus:outline-none focus:border-primary focus:ring-0 rotate-1 cursor-pointer">
+<option>Friend</option>
+<option>Partner</option>
+<option>Parent</option>
+<option>Teacher</option>
+<option selected="">Boss</option>
+<option>Coworker</option>
+<option>Stranger</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-on-surface">
+<span class="material-symbols-outlined" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary border-2 border-on-background font-headline-md text-headline-md py-4 rounded-xl shadow-[6px_6px_0px_0px_#1e1b13] hover:-translate-y-1 hover:translate-x-[-1px] hover:shadow-[8px_8px_0px_0px_#1e1b13] active:scale-95 transition-all -rotate-1 relative overflow-hidden group">
+<span class="relative z-10 flex items-center justify-center gap-2">
+                        Generate My Excuse <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</button>
+</div>
+</section>
+</main>
+<nav class="md:hidden bg-surface dark:bg-surface-dim font-sticker-label text-sticker-label text-primary dark:text-primary-fixed-dim fixed bottom-0 w-full rounded-t-lg z-50 border-t-2 border-outline-variant shadow-[0px_-4px_0px_0px_rgba(147,69,43,0.1)]">
+<div class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 max-w-[800px] mx-auto">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl p-2 rotate-1 scale-105 shadow-[2px_2px_0px_0px_rgba(111,93,14,1)] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="auto_fix_high" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+<span class="text-[12px]">Generate</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="folder_open">folder_open</span>
+<span class="text-[12px]">Archive</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="workspace_premium">workspace_premium</span>
+<span class="text-[12px]">Hall of Fame</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-[12px]">Chaos</span>
+</a>
+</div>
+</nav>
+<script>
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            });
+        });
+    </script>
+</body></html>

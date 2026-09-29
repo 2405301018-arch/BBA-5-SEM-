@@ -1,0 +1,95 @@
+{
+  "hallOfFame": [
+    {
+      "id": "hof-1790058209387",
+      "title": "\"Alien Tractor Beam Interference\"",
+      "description": "My alarm was suspended in mid-air by extraterrestrial joyriders.",
+      "category": "Work",
+      "chaos": "🔥 94%",
+      "tag": "Community Legend",
+      "badgeColor": "bg-tertiary-container text-on-tertiary-container",
+      "rotate": "rotate-[-0.5deg]",
+      "tapeRotate": "rotate-2",
+      "upvotes": 1,
+      "createdAt": "2026-09-22T06:23:29.387Z"
+    },
+    {
+      "id": "hof-1",
+      "title": "The pigeon incident",
+      "description": "A rogue pigeon flew into my living room, stared directly into my soul, and refused to leave until I negotiated with half a bagel.",
+      "category": "Emergency",
+      "chaos": "⭐ 4.9",
+      "tag": "Chaos",
+      "badgeColor": "bg-secondary-container text-on-secondary-container",
+      "rotate": "rotate-[0.5deg]",
+      "tapeRotate": "rotate-1",
+      "upvotes": 428,
+      "createdAt": "2026-09-10T14:22:00.000Z"
+    },
+    {
+      "id": "hof-2",
+      "title": "My GPS emotionally betrayed me",
+      "description": "My navigation rerouted me through an abandoned scenic overlook because it believed I needed a moment of personal reflection.",
+      "category": "Running Late",
+      "chaos": "🔥 92%",
+      "tag": "Chaos",
+      "badgeColor": "bg-primary-fixed text-on-primary-fixed",
+      "rotate": "rotate-[-1deg]",
+      "tapeRotate": "-rotate-6",
+      "upvotes": 312,
+      "createdAt": "2026-09-12T09:15:00.000Z"
+    },
+    {
+      "id": "hof-3",
+      "title": "I accidentally entered a different timeline",
+      "description": "I set three alarms, but daylight saving time occurred in an alternate universe where my phone lives.",
+      "category": "Work",
+      "chaos": "💀 100%",
+      "tag": "Unhinged",
+      "badgeColor": "bg-tertiary-container text-on-tertiary-container",
+      "rotate": "rotate-[1.5deg]",
+      "tapeRotate": "rotate-3",
+      "upvotes": 589,
+      "createdAt": "2026-09-14T11:45:00.000Z"
+    },
+    {
+      "id": "hof-4",
+      "title": "The neighbor's Wi-Fi funeral",
+      "description": "My neighbor accidentally unplugged the shared router while hosting a candlelight vigil for their indoor bonsai tree.",
+      "category": "Work",
+      "chaos": "🔥 88%",
+      "tag": "Specific",
+      "badgeColor": "bg-secondary-fixed text-on-secondary-fixed",
+      "rotate": "rotate-[-0.8deg]",
+      "tapeRotate": "rotate-2",
+      "upvotes": 194,
+      "createdAt": "2026-09-15T08:30:00.000Z"
+    }
+  ],
+  "archive": [
+    {
+      "id": "arch-1",
+      "text": "I typed out a full, thoughtful reply in my head and genuinely believed I had already sent it.",
+      "date": "Yesterday, 4:12 PM",
+      "situation": "Didn't reply",
+      "recipient": "Coworker",
+      "believability": "Suspicious",
+      "ref": "#EX-8412",
+      "createdAt": "2026-09-21T10:42:00.000Z"
+    },
+    {
+      "id": "arch-2",
+      "text": "A rogue pigeon flew into my living room, stared directly into my soul, and refused to leave until I negotiated with half a bagel.",
+      "date": "Sep 12, 2026",
+      "situation": "Can't make it",
+      "recipient": "Boss",
+      "believability": "Absolutely Unhinged 🤯",
+      "ref": "#EX-4902",
+      "createdAt": "2026-09-12T09:30:00.000Z"
+    }
+  ],
+  "stats": {
+    "totalGenerated": 143,
+    "totalChaosReleased": 69
+  }
+}

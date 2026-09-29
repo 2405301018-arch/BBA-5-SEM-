@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #fff8ef;
+  color: #1e1b13;
+}
+
+/* Custom Sticker Shadows & Soft Brutalism Effects */
+.sticker-shadow {
+  box-shadow: 4px 4px 0px 0px rgba(147, 69, 43, 1);
+}
+
+.sticker-shadow-lg {
+  box-shadow: 8px 8px 0px 0px rgba(147, 69, 43, 1);
+}
+
+.sticker-shadow-dark {
+  box-shadow: 4px 4px 0px 0px rgba(30, 27, 19, 1);
+}
+
+.sticker-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sticker-hover:hover {
+  transform: translate(-2px, -2px) scale(1.02);
+  box-shadow: 6px 6px 0px 0px rgba(147, 69, 43, 1);
+}
+
+.sticker-active:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0px 0px rgba(147, 69, 43, 1);
+}
+
+/* Scrapbook Tape effect */
+.tape {
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
+  border-left: 2px dashed rgba(200, 180, 160, 0.4);
+  border-right: 2px dashed rgba(200, 180, 160, 0.4);
+}
+
+/* Paper texture backgrounds */
+.bg-paper, .paper-texture {
+  background-color: #fff8ef;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Grid lines for notebook feel */
+.bg-grid {
+  background-image: linear-gradient(#dac1ba 1px, transparent 1px);
+  background-size: 100% 24px;
+}
+
+/* Wiggle animations */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg) scale(1.02); }
+}
+
+.wiggle {
+  animation: wiggle 3s infinite ease-in-out;
+}
+
+@keyframes wiggle-intense {
+  0%, 7% { transform: rotate(0); }
+  15% { transform: rotate(-4deg); }
+  20% { transform: rotate(3deg); }
+  25% { transform: rotate(-3deg); }
+  30% { transform: rotate(2deg); }
+  35%, 100% { transform: rotate(0); }
+}
+
+.wiggle-effect {
+  animation: wiggle-intense 4s infinite;
+}
+
+/* Pulse animation for main chaos button */
+@keyframes chaos-pulse {
+  0% { transform: scale(1) rotate(-1.5deg); }
+  50% { transform: scale(1.04) rotate(1deg); }
+  100% { transform: scale(1) rotate(-1.5deg); }
+}
+
+.pulse-chaos {
+  animation: chaos-pulse 2.2s infinite ease-in-out;
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid #93452b;
+  white-space: pre-wrap;
+  margin: 0 auto;
+  animation: blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #93452b; }
+}
+
+/* Custom Range Slider Styling */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: #dac1ba;
+  border-radius: 3px;
+  border: 1px solid #88726c;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background: #93452b;
+  cursor: pointer;
+  border: 2px solid #1e1b13;
+  box-shadow: 2px 2px 0px 0px #1e1b13;
+  margin-top: -10px;
+  transition: transform 0.1s ease;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}

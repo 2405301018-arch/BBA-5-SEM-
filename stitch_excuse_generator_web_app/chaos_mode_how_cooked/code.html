@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Excuse Generator - Chaos Mode</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&amp;family=Inter:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from system prompt instructions -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#b5cea9",
+                        "surface-tint": "#96472d",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#221b00",
+                        "surface-container": "#f5edde",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8ef",
+                        "on-background": "#1e1b13",
+                        "on-primary-fixed-variant": "#783119",
+                        "inverse-surface": "#343026",
+                        "surface-container-high": "#efe7d9",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#ffb59e",
+                        "tertiary": "#4c6244",
+                        "on-tertiary-container": "#f8ffef",
+                        "on-tertiary-fixed-variant": "#384c30",
+                        "tertiary-fixed": "#d1eac4",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#657b5b",
+                        "primary": "#93452b",
+                        "on-surface-variant": "#55433d",
+                        "on-primary-container": "#fffbff",
+                        "primary-fixed": "#ffdbd0",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#dac1ba",
+                        "on-primary-fixed": "#3a0b00",
+                        "on-secondary-container": "#746113",
+                        "outline": "#88726c",
+                        "secondary-fixed-dim": "#dec56e",
+                        "surface-variant": "#e9e2d3",
+                        "on-surface": "#1e1b13",
+                        "surface-bright": "#fff8ef",
+                        "surface-container-highest": "#e9e2d3",
+                        "secondary-container": "#f8de84",
+                        "inverse-primary": "#ffb59e",
+                        "secondary-fixed": "#fbe187",
+                        "inverse-on-surface": "#f8f0e1",
+                        "secondary": "#6f5d0e",
+                        "primary-container": "#b25d41",
+                        "surface-container-low": "#fbf3e4",
+                        "background": "#fff8ef",
+                        "on-tertiary-fixed": "#0d2008",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#554500",
+                        "surface-dim": "#e1d9cb",
+                        "dusty-pink": "#EFA7B5",
+                        "terracotta": "#C96F52"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "sticker-label": ["Bricolage Grotesque"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "display-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "sticker-label": ["16px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-mobile": ["36px", { "lineHeight": "1.1", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Sticker Shadows & Effects */
+        .sticker-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(147,69,43,1);
+        }
+        .sticker-shadow-lg {
+            box-shadow: 8px 8px 0px 0px rgba(147,69,43,1);
+        }
+        .sticker-hover:hover {
+            transform: translate(-2px, -2px) scale(1.02);
+            box-shadow: 6px 6px 0px 0px rgba(147,69,43,1);
+        }
+        .sticker-active:active {
+            transform: scale(0.95);
+            box-shadow: 2px 2px 0px 0px rgba(147,69,43,1);
+        }
+        
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #93452b;
+            white-space: pre-wrap;
+            margin: 0 auto;
+            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #93452b; }
+        }
+
+        /* Pulse animation for main button */
+        @keyframes chaos-pulse {
+            0% { transform: scale(1) rotate(-2deg); }
+            50% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(-2deg); }
+        }
+        .pulse-chaos {
+            animation: chaos-pulse 2s infinite ease-in-out;
+        }
+
+        /* Paper texture background class */
+        .bg-paper {
+            background-color: #fff8ef;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* Grid lines for notebook feel */
+        .bg-grid {
+            background-image: linear-gradient(#dac1ba 1px, transparent 1px);
+            background-size: 100% 24px;
+        }
+        
+        /* Wiggle animation */
+        @keyframes wiggle {
+            0%, 7% { transform: rotate(0); }
+            15% { transform: rotate(-3deg); }
+            20% { transform: rotate(2deg); }
+            25% { transform: rotate(-2deg); }
+            30% { transform: rotate(1deg); }
+            35%, 100% { transform: rotate(0); }
+        }
+        .wiggle-effect {
+            animation: wiggle 4s infinite;
+        }
+        
+        body {
+            /* Fallback dark background before shader */
+            background-color: #1e1b13;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-dim font-body-lg text-on-surface antialiased overflow-x-hidden min-h-screen pb-24 relative">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 border-b-2 border-outline-variant dark:border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)]">
+<div class="flex justify-between items-center px-container-padding h-16 w-full max-w-[800px] mx-auto">
+<button aria-label="Menu" class="text-primary dark:text-primary-fixed-dim hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 duration-100 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<h1 class="font-display-mobile text-display-mobile text-primary dark:text-primary-fixed-dim -rotate-2">
+                Excuse Generator
+            </h1>
+<button aria-label="User Profile" class="hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 duration-100 rounded-full border-2 border-primary">
+<div class="w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center font-bold text-on-secondary-container">
+                    UP
+                </div>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-[800px] mx-auto pt-24 px-container-padding relative z-10 flex flex-col gap-6">
+<!-- Header Section -->
+<section class="flex flex-col items-center justify-center my-4 relative">
+<div class="absolute -top-6 -right-4 rotate-12 z-20">
+<span class="bg-terracotta text-white font-sticker-label text-sticker-label px-3 py-1 rounded-full border-2 border-on-background sticker-shadow transform wiggle-effect inline-block">
+                    CHAOS MODE
+                </span>
+</div>
+<!-- Gauge Card -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-6 border-2 border-primary sticker-shadow relative overflow-hidden">
+<div class="bg-grid absolute inset-0 opacity-20 z-0"></div>
+<div class="relative z-10 flex flex-col items-center">
+<h2 class="font-headline-md text-headline-md text-primary mb-4 text-center">How cooked are you?</h2>
+<!-- Progress Bar / Gauge -->
+<div class="w-full h-8 bg-surface-variant rounded-full border-2 border-outline overflow-hidden mb-2 relative">
+<div class="h-full bg-error flex items-center justify-end pr-2 text-white font-bold text-sm transition-all duration-1000" style="width: 87%;">
+                            87%
+                        </div>
+</div>
+<p class="font-sticker-label text-sticker-label text-on-surface-variant text-center mt-2 uppercase tracking-widest">Dangerously Close to Consequence</p>
+</div>
+</div>
+</section>
+<!-- Stats Bento Box -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Stat 1 -->
+<div class="bg-[#fbe187] rounded-lg p-4 border-2 border-on-background sticker-shadow rotate-1 sticker-hover transition-transform flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2 text-on-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-sticker-label text-sticker-label uppercase">Situation</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-background">Catastrophic</p>
+</div>
+<!-- Stat 2 -->
+<div class="bg-dusty-pink rounded-lg p-4 border-2 border-on-background sticker-shadow -rotate-2 sticker-hover transition-transform flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2 text-on-background">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-sticker-label text-sticker-label uppercase">Brain Activity</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-background">Questionable</p>
+</div>
+<!-- Stat 3 -->
+<div class="bg-tertiary-fixed rounded-lg p-4 border-2 border-on-background sticker-shadow rotate-2 sticker-hover transition-transform flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2 text-on-tertiary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
+<span class="font-sticker-label text-sticker-label uppercase">Time Left</span>
+</div>
+<p class="font-body-lg text-body-lg font-bold text-on-background leading-tight">Absolutely not enough</p>
+</div>
+<!-- Stat 4 -->
+<div class="bg-error-container rounded-lg p-4 border-2 border-on-error-container sticker-shadow -rotate-1 sticker-hover transition-transform flex flex-col justify-center relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-20">
+<span class="material-symbols-outlined text-[80px]">skull</span>
+</div>
+<div class="flex items-center gap-2 mb-2 text-on-error-container relative z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">skull</span>
+<span class="font-sticker-label text-sticker-label uppercase">Recovery</span>
+</div>
+<p class="font-display-mobile text-display-mobile text-on-error-container relative z-10">12%</p>
+</div>
+</section>
+<!-- Main Action CTA -->
+<section class="flex justify-center my-6 z-20">
+<button class="pulse-chaos bg-terracotta text-white font-headline-md text-headline-md px-8 py-6 rounded-xl border-4 border-on-background sticker-shadow-lg active:scale-90 active:shadow-[2px_2px_0px_0px_rgba(147,69,43,1)] transition-all flex flex-col items-center gap-2 w-full max-w-sm">
+<span class="uppercase tracking-widest text-sm font-sticker-label">Panic Button</span>
+<span class="flex items-center gap-3">
+                    Give me an excuse
+                    <span class="material-symbols-outlined text-[32px]">bolt</span>
+</span>
+</button>
+</section>
+<!-- Receipt Card (Result) -->
+<section class="relative mt-4 mb-8">
+<!-- Animated Sticker Overlay -->
+<div class="absolute -top-8 -right-8 w-32 h-32 z-30 pointer-events-none rotate-12">
+<!-- STITCH_SVG_START:ANIMATION_3 class="w-full h-full" --><div class="w-full h-full" id="animated-svg-ANIMATION_3" style="display:block;"><svg height="200" viewbox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="140%" id="shadow" width="140%" x="-20%" y="-20%">
+<fegaussianblur in="SourceAlpha" stddeviation="3"></fegaussianblur>
+<feoffset dx="2" dy="2" result="offsetblur"></feoffset>
+<fecomponenttransfer>
+<fefunca slope="0.3" type="linear"></fefunca>
+</fecomponenttransfer>
+<femerge>
+<femergenode></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<g filter="url(#shadow)">
+<circle cx="100" cy="100" fill="#AFC7A3" r="80" stroke="#3D2B24" stroke-width="4"></circle>
+<path d="M70 100 L90 120 L130 80" fill="none" stroke="#3D2B24" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+<animate attributename="stroke-dasharray" dur="0.5s" fill="freeze" from="0,100" to="100,0"></animate>
+</path>
+<text fill="#3D2B24" font-family="cursive" font-size="14" font-weight="bold" text-anchor="middle" x="100" y="155">
+      Certified Plausible
+      <animatetransform attributename="transform" dur="2s" repeatcount="indefinite" type="rotate" values="-2 100 100; 2 100 100; -2 100 100"></animatetransform>
+</text>
+</g>
+</svg></div><!-- STITCH_SVG_END:ANIMATION_3 -->
+</div>
+<!-- Receipt Container -->
+<div class="bg-paper rounded-xl p-8 border-2 border-primary sticker-shadow relative max-w-md mx-auto transform -rotate-1 shadow-[8px_8px_0px_0px_rgba(147,69,43,0.3)] border-dashed">
+<!-- Receipt Header -->
+<div class="text-center border-b-2 border-outline-variant pb-4 mb-6">
+<h3 class="font-headline-md text-headline-md text-primary tracking-widest uppercase">Official Excuse™</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Ref: #CH405-992</p>
+</div>
+<!-- Excuse Content -->
+<div class="min-h-[120px] flex items-center justify-center bg-surface-container-low rounded-lg p-4 border border-outline-variant mb-6">
+<p class="font-body-lg text-body-lg text-on-background text-center italic typewriter">
+                        "I’m so sorry I’m late. I accidentally got on the wrong metro..."
+                    </p>
+</div>
+<!-- Metadata Bars -->
+<div class="space-y-3 mb-8">
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Believability</span>
+<span class="font-bold text-tertiary">78%</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 78%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Drama</span>
+<span class="font-bold text-primary">64%</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 64%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Chaos</span>
+<span class="font-bold text-error">31%</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 31%;"></div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3">
+<button class="bg-primary-container text-on-primary-container font-sticker-label text-sticker-label px-4 py-3 rounded-lg border-2 border-on-background sticker-shadow sticker-hover sticker-active flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">content_copy</span>
+                        Copy Excuse
+                    </button>
+<div class="flex gap-3">
+<button class="flex-1 bg-surface text-on-surface font-sticker-label text-sticker-label px-4 py-3 rounded-lg border-2 border-outline sticker-shadow sticker-hover sticker-active flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">refresh</span>
+                            Another
+                        </button>
+<button class="flex-1 bg-error-container text-on-error-container font-sticker-label text-sticker-label px-4 py-3 rounded-lg border-2 border-on-error-container sticker-shadow sticker-hover sticker-active flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">warning</span>
+                            Make It Worse
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Decorative Background Elements (floating behind content) -->
+<div class="fixed top-1/4 left-4 w-16 h-16 bg-secondary rounded-full opacity-20 blur-xl pointer-events-none z-0"></div>
+<div class="fixed bottom-1/4 right-4 w-24 h-24 bg-terracotta rounded-full opacity-20 blur-xl pointer-events-none z-0"></div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full rounded-t-lg z-50 bg-surface dark:bg-surface-dim border-t-2 border-outline-variant shadow-[0px_-4px_0px_0px_rgba(147,69,43,0.1)] md:hidden">
+<div class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 max-w-[800px] mx-auto">
+<!-- Item 1: Generate -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1 active:scale-90 duration-75">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">auto_fix_high</span>
+<span class="font-sticker-label text-sticker-label text-[12px]">Generate</span>
+</button>
+<!-- Item 2: Archive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1 active:scale-90 duration-75">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">folder_open</span>
+<span class="font-sticker-label text-sticker-label text-[12px]">Archive</span>
+</button>
+<!-- Item 3: Hall of Fame -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1 active:scale-90 duration-75">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">workspace_premium</span>
+<span class="font-sticker-label text-sticker-label text-[12px]">Hall of Fame</span>
+</button>
+<!-- Item 4: Chaos (Active) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl p-2 rotate-1 scale-105 shadow-[2px_2px_0px_0px_rgba(111,93,14,1)] active:scale-90 duration-75">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-sticker-label text-sticker-label text-[12px]">Chaos</span>
+</button>
+</div>
+</nav>
+<!-- Desktop Nav Sidebar (hidden on mobile, mapped from BottomNavBar structure conceptually) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-16 h-full w-64 bg-surface dark:bg-surface-dim border-r-2 border-outline-variant p-6 z-40">
+<div class="space-y-4 mt-8">
+<button class="w-full flex items-center justify-start gap-4 text-on-surface-variant p-4 rounded-xl hover:bg-surface-container-high transition-transform hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(147,69,43,0.5)]">
+<span class="material-symbols-outlined text-[24px]">auto_fix_high</span>
+<span class="font-headline-md text-[18px]">Generate</span>
+</button>
+<button class="w-full flex items-center justify-start gap-4 text-on-surface-variant p-4 rounded-xl hover:bg-surface-container-high transition-transform hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(147,69,43,0.5)]">
+<span class="material-symbols-outlined text-[24px]">folder_open</span>
+<span class="font-headline-md text-[18px]">Archive</span>
+</button>
+<button class="w-full flex items-center justify-start gap-4 text-on-surface-variant p-4 rounded-xl hover:bg-surface-container-high transition-transform hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(147,69,43,0.5)]">
+<span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+<span class="font-headline-md text-[18px]">Hall of Fame</span>
+</button>
+<button class="w-full flex items-center justify-start gap-4 bg-secondary-container text-on-secondary-container p-4 rounded-xl rotate-1 scale-105 shadow-[4px_4px_0px_0px_rgba(111,93,14,1)]">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-headline-md text-[18px]">Chaos Mode</span>
+</button>
+</div>
+</nav>
+</body></html>

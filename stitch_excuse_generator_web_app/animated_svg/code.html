@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_SVG_START:ANIMATION_3 class="fixed inset-0 w-full h-full" --><div class="fixed inset-0 w-full h-full" id="animated-svg-ANIMATION_3" style="display:block;"><svg height="200" viewbox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="140%" id="shadow" width="140%" x="-20%" y="-20%">
+<fegaussianblur in="SourceAlpha" stddeviation="3"></fegaussianblur>
+<feoffset dx="2" dy="2" result="offsetblur"></feoffset>
+<fecomponenttransfer>
+<fefunca slope="0.3" type="linear"></fefunca>
+</fecomponenttransfer>
+<femerge>
+<femergenode></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<g filter="url(#shadow)">
+<circle cx="100" cy="100" fill="#AFC7A3" r="80" stroke="#3D2B24" stroke-width="4"></circle>
+<path d="M70 100 L90 120 L130 80" fill="none" stroke="#3D2B24" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+<animate attributename="stroke-dasharray" dur="0.5s" fill="freeze" from="0,100" to="100,0"></animate>
+</path>
+<text fill="#3D2B24" font-family="cursive" font-size="14" font-weight="bold" text-anchor="middle" x="100" y="155">
+      Certified Plausible
+      <animatetransform attributename="transform" dur="2s" repeatcount="indefinite" type="rotate" values="-2 100 100; 2 100 100; -2 100 100"></animatetransform>
+</text>
+</g>
+</svg></div><!-- STITCH_SVG_END:ANIMATION_3 -->
+</body>
+</html>

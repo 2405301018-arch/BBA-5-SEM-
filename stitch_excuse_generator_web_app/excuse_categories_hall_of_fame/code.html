@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Excuse Generator - Hall of Fame &amp; Categories</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Bricolage+Grotesque:wght@600&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#b5cea9",
+                    "surface-tint": "#96472d",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#221b00",
+                    "surface-container": "#f5edde",
+                    "error-container": "#ffdad6",
+                    "surface": "#fff8ef",
+                    "on-background": "#1e1b13",
+                    "on-primary-fixed-variant": "#783119",
+                    "inverse-surface": "#343026",
+                    "surface-container-high": "#efe7d9",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#ffb59e",
+                    "tertiary": "#4c6244",
+                    "on-tertiary-container": "#f8ffef",
+                    "on-tertiary-fixed-variant": "#384c30",
+                    "tertiary-fixed": "#d1eac4",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#657b5b",
+                    "primary": "#93452b",
+                    "on-surface-variant": "#55433d",
+                    "on-primary-container": "#fffbff",
+                    "primary-fixed": "#ffdbd0",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#dac1ba",
+                    "on-primary-fixed": "#3a0b00",
+                    "on-secondary-container": "#746113",
+                    "outline": "#88726c",
+                    "secondary-fixed-dim": "#dec56e",
+                    "surface-variant": "#e9e2d3",
+                    "on-surface": "#1e1b13",
+                    "surface-bright": "#fff8ef",
+                    "surface-container-highest": "#e9e2d3",
+                    "secondary-container": "#f8de84",
+                    "inverse-primary": "#ffb59e",
+                    "secondary-fixed": "#fbe187",
+                    "inverse-on-surface": "#f8f0e1",
+                    "secondary": "#6f5d0e",
+                    "primary-container": "#b25d41",
+                    "surface-container-low": "#fbf3e4",
+                    "background": "#fff8ef",
+                    "on-tertiary-fixed": "#0d2008",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#554500",
+                    "surface-dim": "#e1d9cb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-padding": "24px",
+                    "gutter": "16px",
+                    "unit": "4px",
+                    "stack-gap": "12px"
+            },
+            "fontFamily": {
+                    "sticker-label": [
+                            "Bricolage Grotesque"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-mobile": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "sticker-label": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "display-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "fontWeight": "800"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .paper-texture {
+            background-color: #fff8ef;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        .tape {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+        }
+        .wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-2deg) scale(1.05); }
+            50% { transform: rotate(0deg) scale(1.05); }
+            75% { transform: rotate(2deg) scale(1.05); }
+            100% { transform: rotate(0deg) scale(1.05); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background paper-texture min-h-screen relative overflow-x-hidden font-body-lg">
+<!-- Background Shader -->
+<!-- STITCH_SHADER_START:ANIMATION_2 class="fixed inset-0 w-full h-full -z-10 opacity-30" -->
+<div class="fixed inset-0 w-full h-full -z-10 opacity-30" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float noise(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Base color: #FFF7E8
+    vec3 color = vec3(1.0, 0.969, 0.910);
+    
+    // Add subtle grain
+    float grain = noise(uv + u_time * 0.01) * 0.05;
+    color -= grain;
+    
+    // Add soft paper texture variation
+    float texture = sin(uv.x * 50.0) * cos(uv.y * 50.0) * 0.02;
+    color += texture;
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<!-- Top Navigation Container (Desktop) -->
+<header class="hidden md:flex justify-between items-center px-container-padding h-16 w-full max-w-[800px] mx-auto bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] fixed top-0 left-0 right-0 z-50 rounded-b-xl border-b-2 border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">menu</span>
+<span class="font-display-mobile text-display-mobile text-primary dark:text-primary-fixed-dim -rotate-2">Excuse Generator</span>
+</div>
+<nav class="flex gap-6">
+<a class="text-on-surface-variant font-sticker-label text-sticker-label hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all" href="#">Generate</a>
+<a class="text-on-surface-variant font-sticker-label text-sticker-label hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all" href="#">Archive</a>
+<a class="text-primary font-bold font-sticker-label text-sticker-label hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all underline decoration-primary decoration-2 underline-offset-4" href="#">Hall of Fame</a>
+<a class="text-on-surface-variant font-sticker-label text-sticker-label hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all" href="#">Chaos</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border-2 border-outline shadow-[2px_2px_0px_0px_rgba(147,69,43,1)] rotate-3">
+<img class="w-full h-full object-cover" data-alt="A small, stylized profile avatar illustration of a chaotic cartoon character resembling a mischievous raccoon wearing a tiny backward baseball cap. Warm terracotta and soft cream colors, playful Gen Z digital art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0TaQsyg0XzpmO5psg6Yxizui90vkR1Azf7JXnRvnAXu5bniRK2skzqQAMjt6fAdqNayN5ThdaO_AtKL1TSn9-Hpni8A5X0Y4_se6k3N5Ct5LtM7JDdE0HXhAQUfm5fzwscwC1jhT5kkewzGikIAFxFwDDVb2_lM7D60HHdmrdf4VyxpUqoVfOgdr5bndfOoLbhMbTe4jKWdj9yRW3zRYyvVcjV-ZlT15Z4ls09q1hvK94Atcapped"/>
+</div>
+</header>
+<!-- Mobile Top App Bar -->
+<header class="md:hidden flex justify-between items-center px-container-padding h-16 w-full fixed top-0 z-50 bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] border-b-2 border-outline-variant dark:border-outline">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">menu</span>
+<span class="font-display-mobile text-display-mobile text-primary dark:text-primary-fixed-dim -rotate-2">Excuse Generator</span>
+<div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden border-2 border-outline shadow-[2px_2px_0px_0px_rgba(147,69,43,1)] rotate-3">
+<img class="w-full h-full object-cover" data-alt="A small, stylized profile avatar illustration of a chaotic cartoon character resembling a mischievous raccoon wearing a tiny backward baseball cap. Warm terracotta and soft cream colors, playful Gen Z digital art style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNEZWldYuzCLr-n5MSqyaA0tVNHyptbhCSLVoT7GQZifo2yDambnZGYG1CDwRjXluqx8f0xLCko-Yp3Ms2EYwcrVDtARGVxrUUs1KMLj-UKBoI3DRqItobKhw2lSTMBoC2HWS9k28wBD3TChr15gBRJYk9JD2pxZvDBRPdA1rU101tuau2pIOSibU5dz1Tmn7_DPNfr6JbIA6NR0jPYnQ6Jj25eih58kxMaxzpenQOEfPN-2q5WZk9"/>
+</div>
+</header>
+<main class="max-w-[800px] mx-auto pt-24 pb-32 px-container-padding relative z-10 flex flex-col gap-12">
+<!-- Hall of Fame Section -->
+<section class="flex flex-col gap-stack-gap">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md text-primary-fixed-variant rotate-[-1deg]">🏆 Hall of Fame</h2>
+<div class="tape w-24 h-6 absolute -top-2 left-4 -rotate-3 z-20"></div>
+</div>
+<div class="grid grid-cols-1 gap-6 relative">
+<!-- Decorative background elements -->
+<div class="absolute -right-4 top-10 w-16 h-16 bg-secondary-container rounded-full mix-blend-multiply opacity-50 blur-sm"></div>
+<!-- Hall of Fame Card 1 -->
+<article class="bg-surface-container rounded-xl p-6 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] relative transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] rotate-[0.5deg]">
+<div class="tape w-12 h-4 absolute top-2 right-1/2 translate-x-1/2 rotate-1"></div>
+<div class="flex justify-between items-start mb-2 mt-2">
+<p class="font-body-lg text-body-lg text-on-surface font-medium leading-relaxed max-w-[85%]">
+                            "The pigeon incident"
+                        </p>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-md border border-secondary shadow-[2px_2px_0px_0px_rgba(111,93,14,1)] font-sticker-label text-sticker-label text-sm rotate-2">
+                                ⭐ 4.9
+                            </span>
+<span class="text-xs text-on-surface-variant font-sticker-label">Chaos</span>
+</div>
+</div>
+</article>
+<!-- Hall of Fame Card 2 -->
+<article class="bg-surface-container rounded-xl p-6 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] relative transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] rotate-[-1deg]">
+<div class="tape w-16 h-4 absolute top-2 -left-2 -rotate-6"></div>
+<div class="tape w-16 h-4 absolute bottom-2 -right-2 rotate-12"></div>
+<div class="flex justify-between items-start mb-2 mt-2">
+<p class="font-body-lg text-body-lg text-on-surface font-medium leading-relaxed max-w-[85%]">
+                            "My GPS emotionally betrayed me"
+                        </p>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded-md border border-primary shadow-[2px_2px_0px_0px_rgba(147,69,43,1)] font-sticker-label text-sticker-label text-sm -rotate-1">
+                                🔥 92%
+                            </span>
+<span class="text-xs text-on-surface-variant font-sticker-label">Chaos</span>
+</div>
+</div>
+</article>
+<!-- Hall of Fame Card 3 -->
+<article class="bg-surface-container rounded-xl p-6 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] relative transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] rotate-[1.5deg]">
+<div class="tape w-20 h-5 absolute -top-3 right-4 rotate-3 opacity-70"></div>
+<div class="flex justify-between items-start mb-2 mt-2">
+<p class="font-body-lg text-body-lg text-on-surface font-medium leading-relaxed max-w-[85%]">
+                            "I accidentally entered a different timeline"
+                        </p>
+<div class="flex flex-col items-end gap-1">
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded-md border border-tertiary shadow-[2px_2px_0px_0px_rgba(56,76,48,1)] font-sticker-label text-sticker-label text-sm rotate-3">
+                                💀 100%
+                            </span>
+<span class="text-xs text-on-surface-variant font-sticker-label">Unhinged</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Categories Grid -->
+<section class="flex flex-col gap-stack-gap mt-8">
+<h2 class="font-headline-md text-headline-md text-primary-fixed-variant rotate-1 mb-2">Categories</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+<!-- Category 1 -->
+<button class="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 rotate-[-2deg] wiggle group">
+<div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center group-hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-on-secondary-container text-2xl">timer</span>
+</div>
+<span class="font-sticker-label text-sticker-label text-on-surface text-center">Running Late</span>
+</button>
+<!-- Category 2 -->
+<button class="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 rotate-[1deg] wiggle group">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center group-hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-on-primary-fixed text-2xl">visibility_off</span>
+</div>
+<span class="font-sticker-label text-sticker-label text-on-surface text-center">Ghosting</span>
+</button>
+<!-- Category 3 -->
+<button class="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 rotate-[-1deg] wiggle group">
+<div class="w-12 h-12 bg-tertiary-container rounded-full flex items-center justify-center group-hover:bg-tertiary transition-colors">
+<span class="material-symbols-outlined text-on-tertiary-container text-2xl">work</span>
+</div>
+<span class="font-sticker-label text-sticker-label text-on-surface text-center">Work</span>
+</button>
+<!-- Category 4 -->
+<button class="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 rotate-[2deg] wiggle group">
+<div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center group-hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-on-secondary-container text-2xl">school</span>
+</div>
+<span class="font-sticker-label text-sticker-label text-on-surface text-center">School</span>
+</button>
+<!-- Category 5 -->
+<button class="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 rotate-[-1.5deg] wiggle group">
+<div class="w-12 h-12 bg-primary-fixed rounded-full flex items-center justify-center group-hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-on-primary-fixed text-2xl">groups</span>
+</div>
+<span class="font-sticker-label text-sticker-label text-on-surface text-center">Social Plans</span>
+</button>
+<!-- Category 6 -->
+<button class="bg-surface-container-high rounded-xl p-4 border-2 border-outline shadow-[4px_4px_0px_0px_rgba(147,69,43,1)] flex flex-col items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(147,69,43,1)] transition-all active:scale-95 rotate-[1.5deg] wiggle group">
+<div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-on-error-container text-2xl">warning</span>
+</div>
+<span class="font-sticker-label text-sticker-label text-on-surface text-center">Emergency</span>
+</button>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="flex justify-center mt-6">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl border-2 border-on-background shadow-[4px_4px_0px_0px_rgba(30,27,19,1)] font-headline-md text-headline-md hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(30,27,19,1)] active:scale-95 transition-all rotate-[-1deg] wiggle">
+                Submit Your Excuse
+            </button>
+</section>
+</main>
+<!-- Mobile Bottom Navigation Bar -->
+<nav class="md:hidden bg-surface dark:bg-surface-dim fixed bottom-0 w-full rounded-t-lg z-50 border-t-2 border-outline-variant shadow-[0px_-4px_0px_0px_rgba(147,69,43,0.1)] fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 max-w-[800px] mx-auto">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1">auto_fix_high</span>
+<span class="font-sticker-label text-sticker-label text-xs">Generate</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1">folder_open</span>
+<span class="font-sticker-label text-sticker-label text-xs">Archive</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl p-2 rotate-1 scale-105 shadow-[2px_2px_0px_0px_rgba(111,93,14,1)] hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-sticker-label text-sticker-label text-xs">Hall of Fame</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-transform hover:-rotate-1" href="#">
+<span class="material-symbols-outlined mb-1">local_fire_department</span>
+<span class="font-sticker-label text-sticker-label text-xs">Chaos</span>
+</a>
+</nav>
+</body></html>
